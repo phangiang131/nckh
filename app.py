@@ -41,4 +41,7 @@ def process_products_model():
     
 
     return Response(xml, mimetype='application/xml')
-app.run(host='0.0.0.0', port=6350)
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run(host="0.0.0.0",port=63500)
