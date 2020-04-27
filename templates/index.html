@@ -25,7 +25,7 @@
 
       #result {
         overflow-y: scroll;
-        height: 250px;
+        height: 400px;
       }
     </style>
 
@@ -42,7 +42,7 @@
       </div>
       <div id="result-area">
         <div>
-          <label class="font-weight-bol text-white"><h2>Search results</h2></label>
+          <label class="font-weight-bol"><h2>Search results</h2></label>
         </div>
         <ul id="result" class="list-group">
           
@@ -77,6 +77,7 @@
         }
         document.getElementById("result").innerHTML = displayResult;
         document.getElementById("result-area").style.display = "block";
+        document.getElementById("search-container").style.marginTop = '0px';
         }
 
       window.addEventListener("keypress", function(e) {

@@ -107,8 +107,8 @@
         var tagged_dict = resultList['tagged_sentence'];
         console.log(tagged_dict);
         var displayTaggedSentence = new String();
-        for (var key in tagged_dict) {
-          displayTaggedSentence += "<span class='tag rounded-pill' style='background-color: " + tag_to_color[tagged_dict[key]] + ";'><label class='tagged-text'>" + key + "</label></span>\n";
+        for (i=0; i<tagged_dict.length; i++) {
+          displayTaggedSentence += "<span class='tag rounded-pill' style='background-color: " + tag_to_color[tagged_dict[i][1]] + ";'><label class='tagged-text'>" + tagged_dict[i][0] + "</label></span>\n";
         }
         document.getElementById('tagged_sentence').innerHTML = displayTaggedSentence;
 

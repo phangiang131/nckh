@@ -28,7 +28,7 @@ def get_entity_by_tag(query, tag='target'):
     return display_dict, tag_dic
 
 def to_display(sentence):
-    dct = {}
+    dct = []
     i = 0
     cur_tag = ''
     phrase = []
@@ -41,22 +41,22 @@ def to_display(sentence):
             elif cur_tag == tokens[i+1]:
                 phrase += [tokens[i]]
             elif cur_tag != tokens[i+1]:
-                dct[' '.join(phrase)] = cur_tag
+                dct.append([' '.join(phrase), cur_tag])
                 cur_tag = tokens[i+1]
                 phrase = [tokens[i]]
             i += 1
         else:
             if cur_tag != '':
-                dct[' '.join(phrase)] = cur_tag
+                dct.append([' '.join(phrase), cur_tag])
                 phrase = []
                 cur_tag = ''
-            dct[tokens[i]] = ''
+            dct.append([tokens[i], ''])
         i += 1
 
     if i == len(tokens)-1 and '<' not in tokens[i]:
-        dct[tokens[i]] = ''
+        dct.append([tokens[i], ''])
     
     if cur_tag != '':
-        dct[' '.join(phrase)] = cur_tag 
+        dct.append([' '.join(phrase), cur_tag]) 
 
     return dct

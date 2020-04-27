@@ -23,7 +23,7 @@ def find_product(keyword):
   }
   '''
   data = data.encode('utf-8')
-  x = requests.get('https://deacf22b5a0e435ca8d38a141004dc9c.us-east-1.aws.found.io:9243/ecommerce_title/_search',headers = headers, data=data, auth=HTTPBasicAuth('giang0','123456789'))
+  x = requests.get('https://e6142e75eaa441aca21a0455d8261f3c.us-central1.gcp.cloud.es.io:9243/ecommerce_title/_search',headers = headers, data=data, auth=HTTPBasicAuth('giang0','123456789'))
   
   results = json.loads(x.text, encoding='utf-8')['hits']['hits']
   product_list = []
