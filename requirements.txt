@@ -39,7 +39,6 @@ MarkupSafe==1.1.1
 matplotlib==3.2.1
 mkl-fft==1.0.6
 mkl-random==1.0.1
-
 more-itertools==8.2.0
 mpld3==0.3
 networkx==2.2
@@ -72,7 +71,7 @@ soupsieve==2.0
 sqlitedict==1.6.0
 tabulate==0.8.7
 tokenizers==0.5.2
-torch==1.4.0
+torch
 torchvision==0.5.0
 tqdm==4.43.0
 transformers==2.5.1
