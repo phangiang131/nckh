@@ -25,9 +25,9 @@ def home():
 def process_products_model():
     xml = ''
     keyword = request.form.get('keyword')
-    tagged_sentence, tag_dict = get_entity_by_tag(keyword)
+    tagged_sentences, tag_dict = get_entity_by_tag(keyword)
     product_list = find_product(' '.join(tag_dict['target']))
-    return json.dumps({"tagged_sentence": tagged_sentence, "product_list": product_list})
+    return json.dumps({"tagged_sentences": tagged_sentences, "product_list": product_list})
 
 if __name__ == "__main__":
     app.debug = True

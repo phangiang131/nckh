@@ -104,18 +104,32 @@
       function process_result(response, query){
         var resultList = JSON.parse(response);
 
-        var tagged_dict = resultList['tagged_sentence'];
-        console.log(tagged_dict);
-        var displayTaggedSentence = new String();
-        for (i=0; i<tagged_dict.length; i++) {
-          if (tagged_dict[i][1] != "") {
-            displayTaggedSentence += "<span class='tag rounded-pill' style='background-color: " + tag_to_color[tagged_dict[i][1]] + ";'><label class='tagged-text'>" + tagged_dict[i][0] + "</label></span>\n";
+        var tag_display = resultList['tagged_sentences']['tag_display'];
+        var displayTaggedSentence = new Array();
+        for (i=0; i<tag_display.length; i++) {
+          if (tag_display[i][1] != "") {
+            displayTaggedSentence.push("<span class='tag rounded-pill' style='background-color: " + tag_to_color[tag_display[i][1]] + ";'><label class='tagged-text'>" + tag_display[i][0] + "</label></span>");
           }
           else {
-            displayTaggedSentence += "<label class='tag'>" + tagged_dict[i][0] + "</label>\n"; 
+            displayTaggedSentence.push("<label class='tag'>" + tag_display[i][0] + "</label>"); 
           }
         }
-        document.getElementById('tagged_sentence').innerHTML = displayTaggedSentence;
+
+        var non_tag_display = resultList['tagged_sentences']['non_tag_display'];
+        var i=0;
+        var visited = new Array();
+        while (i < non_tag_display.length) {
+          for (j=0;j<displayTaggedSentence.length;j++){
+            if (visited.includes(j)===false || displayTaggedSentence[j].includes(non_tag_display[i][0])){
+              displayTaggedSentence[j] = displayTaggedSentence[j].replace(non_tag_display[i][0], "<span class='tag rounded-pill' style='background-color: " + tag_to_color[non_tag_display[i][1]] + ";'><label class='tagged-text'>" + non_tag_display[i][0] + "</label></span>");
+              visited.push(j);
+              break;
+            }
+          }
+          i++;
+        }
+
+        document.getElementById('tagged_sentence').innerHTML = displayTaggedSentence.join('\n');
 
         var productList = resultList['product_list'];
         var displayResult = new Array();
