@@ -46,11 +46,11 @@
         <p align="center">
           <span class="tag rounded-pill" style="background-color: #fc0000;"><label class="tagged-text">target</label></span>
           <span class="tag rounded-pill" style="background-color: #11fc00;"><label class="tagged-text">brand</label></span>
-          <span class="tag rounded-pill" style="background-color: #2e00fc;"><label class="tagged-text">user</label></span>
-          <span class="tag rounded-pill" style="background-color: #ff00aa;"><label class="tagged-text">price</label></span>
+          <span class="tag rounded-pill" style="background-color: #3b3eff;"><label class="tagged-text">user</label></span>
+          <span class="tag rounded-pill" style="background-color: #ff69c0;"><label class="tagged-text">price</label></span>
           <span class="tag rounded-pill" style="background-color: #ff8400;"><label class="tagged-text">size</label></span>
           <span class="tag rounded-pill" style="background-color: #dae81c;"><label class="tagged-text">color</label></span>
-          <span class="tag rounded-pill" style="background-color: #784f20;"><label class="tagged-text">status</label></span>
+          <span class="tag rounded-pill" style="background-color: #ba772b;"><label class="tagged-text">status</label></span>
           <span class="tag rounded-pill" style="background-color: #03fce3;"><label class="tagged-text">origin</label></span>
           <span class="tag rounded-pill" style="background-color: #ac05fa;"><label class="tagged-text">location</label></span>
         </p>
@@ -74,13 +74,13 @@
       var tag_to_color = {
         "<target>": "#fc0000",
         "<brand>": "#11fc00",
-        "<user>": "#2e00fc",
-        "<price>": "#ff00aa",
+        "<user>": "#3b3eff",
+        "<price>": "#ff69c0",
         "<size>": "#ff8400",
         "<color>": "#dae81c",
-        "<status>": "#784f20",
+        "<status>": "#ba772b",
         "<origin>": "#03fce3",
-        "<location>": "#ac05fa"
+        "<loc>": "#ac05fa"
       };
 
       function submit(){
@@ -108,7 +108,12 @@
         console.log(tagged_dict);
         var displayTaggedSentence = new String();
         for (i=0; i<tagged_dict.length; i++) {
-          displayTaggedSentence += "<span class='tag rounded-pill' style='background-color: " + tag_to_color[tagged_dict[i][1]] + ";'><label class='tagged-text'>" + tagged_dict[i][0] + "</label></span>\n";
+          if (tagged_dict[i][1] != "") {
+            displayTaggedSentence += "<span class='tag rounded-pill' style='background-color: " + tag_to_color[tagged_dict[i][1]] + ";'><label class='tagged-text'>" + tagged_dict[i][0] + "</label></span>\n";
+          }
+          else {
+            displayTaggedSentence += "<label class='tag'>" + tagged_dict[i][0] + "</label>\n"; 
+          }
         }
         document.getElementById('tagged_sentence').innerHTML = displayTaggedSentence;
 
