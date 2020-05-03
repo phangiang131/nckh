@@ -1,7 +1,11 @@
 import json
 from flask import Flask, escape, request, render_template, Response
 from service.elasticsearch import find_product
-from service.tag_extraction import get_entity_by_tag
+from service.tag_extraction import get_entity_by_tag, load_model
+
+models = {}
+models["target_model"] = load_model("./service/model/final-model-target.pt")
+models["non_target_model"] = load_model("./service/model/final-model-non-target.pt")
 
 app = Flask(__name__)
 
@@ -25,7 +29,7 @@ def home():
 def process_products_model():
     xml = ''
     keyword = request.form.get('keyword')
-    tagged_sentences, tag_dict = get_entity_by_tag(keyword)
+    tagged_sentences, tag_dict = get_entity_by_tag(query=keyword, models=models)
     product_list = find_product(' '.join(tag_dict['target']))
     return json.dumps({"tagged_sentences": tagged_sentences, "product_list": product_list})
 

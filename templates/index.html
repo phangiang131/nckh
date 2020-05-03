@@ -36,13 +36,13 @@
       <div class="mt-5">
         <h1 class="text-center">Product Search</h1>
       </div>
-      <div class="row mt-5">
+      <div class="row">
         <input type="text" id="input-search" class="col-sm-11 form-control form-control-lg" placeholder="Type your search here">
         <button type="button" class="col-sm-1 btn btn-danger" onclick="submit()" id="search-button"><i class="fas fa-search"></i></button>
       </div>
       <div id="result-area">
         <div>
-          <label class="font-weight-bol"><h2>Search results</h2></label>
+          <label class="font-weight-bol"><h3>Search results</h3></label>
         </div>
         <ul id="result" class="list-group">
           
@@ -75,7 +75,7 @@
         for (i=0; i<resultList.length;i++) {
           displayResult.push("<li class='list-group-item bg-info text-white'><h5>" + resultList[i] +"</h5></li>");
         }
-        document.getElementById("result").innerHTML = displayResult;
+        document.getElementById("result").innerHTML = displayResult.join("\n");
         document.getElementById("result-area").style.display = "block";
         document.getElementById("search-container").style.marginTop = '0px';
         }

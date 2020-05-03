@@ -19,12 +19,12 @@ def get_tag_sentence(model,query):
     model.predict(sentence)
     return sentence
 
-def get_entity_by_tag(query, tag='target'):
-    target_model = load_model('./service/model/final-model-target.pt')
-    non_target_model = load_model('./service/model/final-model-non-target.pt')
+def get_entity_by_tag(query, models, tag='target'):
+    # target_model = load_model('./service/model/final-model-target.pt')
+    # non_target_model = load_model('./service/model/final-model-non-target.pt')
 
-    tag_sentence = get_tag_sentence(target_model, query)
-    non_tag_sentence = get_tag_sentence(non_target_model, query)
+    tag_sentence = get_tag_sentence(models["target_model"], query)
+    non_tag_sentence = get_tag_sentence(models["non_target_model"], query)
 
     tag_display = to_display(tag_sentence)
     non_tag_display = to_display(non_tag_sentence)
