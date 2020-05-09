@@ -20,12 +20,10 @@ def get_tag_sentence(model,query):
     return sentence
 
 def get_entity_by_tag(query, models, tag='target'):
-    # target_model = load_model('./service/model/final-model-target.pt')
-    # non_target_model = load_model('./service/model/final-model-non-target.pt')
 
     tag_sentence = get_tag_sentence(models["target_model"], query)
     non_tag_sentence = get_tag_sentence(models["non_target_model"], query)
-
+    
     tag_display = to_display(tag_sentence)
     non_tag_display = to_display(non_tag_sentence)
 
@@ -62,22 +60,14 @@ def to_display(sentence):
             dct.append([tokens[i], ''])
         i += 1
 
+    if cur_tag != '':
+        dct.append([' '.join(phrase), cur_tag])
+
     if i == len(tokens)-1 and '<' not in tokens[i]:
         dct.append([tokens[i], ''])
-    
-    if cur_tag != '':
-        dct.append([' '.join(phrase), cur_tag]) 
 
     return dct
 
 def combine(tag, non_tag):
     new_non_tag = [nt for nt in non_tag if nt[1]!='']
     return tag, new_non_tag
-
-if __name__ == '__main__':
-    tag = 'laptop <target> dell <target> chính <target> hãng <target> giá <price> rẻ <price> rẻ <price> dell <target> 200'
-    non_tag = 'laptop dell <brand> chính hãng giá <price> rẻ <price> rẻ <price> dell <brand> 200'
-    # tag = to_display(tag)
-    # non_tag = to_display(non_tag)
-    # tag, non_tag = combine(tag, non_tag)
-    print(combine(tag, non_tag))
