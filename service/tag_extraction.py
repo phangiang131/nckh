@@ -19,7 +19,7 @@ def get_tag_sentence(model,query):
     model.predict(sentence)
     return sentence
 
-def get_entity_by_tag(query, models, tag='target'):
+def get_entity_by_tag(query, models, tag='TARGET'):
 
     tag_sentence = get_tag_sentence(models["target_model"], query)
     non_tag_sentence = get_tag_sentence(models["non_target_model"], query)
@@ -42,26 +42,27 @@ def to_display(sentence):
     # tokens = sentence.split()
     while i < len(tokens)-1:
         if '<' in tokens[i+1]:
+            label = tokens[i+1][3:-1].lower()
             if cur_tag == '':
-                cur_tag = tokens[i+1]
+                cur_tag = label
                 phrase += [tokens[i]]
-            elif cur_tag == tokens[i+1]:
+            elif cur_tag == label:
                 phrase += [tokens[i]]
             elif cur_tag != tokens[i+1]:
-                dct.append([' '.join(phrase), cur_tag])
-                cur_tag = tokens[i+1]
+                dct.append([' '.join(phrase), '<' + cur_tag + '>'])
+                cur_tag = label
                 phrase = [tokens[i]]
             i += 1
         else:
             if cur_tag != '':
-                dct.append([' '.join(phrase), cur_tag])
+                dct.append([' '.join(phrase), '<' + cur_tag + '>'])
                 phrase = []
                 cur_tag = ''
             dct.append([tokens[i], ''])
         i += 1
 
     if cur_tag != '':
-        dct.append([' '.join(phrase), cur_tag])
+        dct.append([' '.join(phrase), '<' + cur_tag + '>'])
 
     if i == len(tokens)-1 and '<' not in tokens[i]:
         dct.append([tokens[i], ''])
