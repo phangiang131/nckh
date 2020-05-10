@@ -108,6 +108,7 @@
         var resultList = JSON.parse(response);
 
         var tag_display = resultList['tagged_sentences']['tag_display'];
+        console.log(tag_display);
         var displayTaggedSentence = new Array();
         for (i=0; i<tag_display.length; i++) {
           if (tag_display[i][1] != "") {
@@ -119,13 +120,16 @@
         }
 
         var non_tag_display = resultList['tagged_sentences']['non_tag_display'];
+        console.log(non_tag_display);
         var i=0;
         var visited = new Array();
         while (i < non_tag_display.length) {
           for (j=0;j<displayTaggedSentence.length;j++){
-            if (visited.includes(j)===false || displayTaggedSentence[j].includes(non_tag_display[i][0])){
+            if (visited.includes(j)===false && displayTaggedSentence[j].includes(non_tag_display[i][0]) && displayTaggedSentence[j].includes(tag_to_color[non_tag_display[i][1]])===false){
               displayTaggedSentence[j] = displayTaggedSentence[j].replace(non_tag_display[i][0], "<span class='tag rounded' style='background-color: " + tag_to_color[non_tag_display[i][1]] + ";'><label class='tagged-text'>" + non_tag_display[i][0] + "</label></span>");
               visited.push(j);
+              console.log(non_tag_display[i][0]);
+              console.log(j);
               break;
             }
           }
